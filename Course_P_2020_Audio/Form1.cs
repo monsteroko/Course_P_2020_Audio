@@ -16,7 +16,7 @@ namespace Course_P_2020_Audio
 
     public partial class Form1 : Form
     {
-        string rfname = @"C:\r.mp3";
+        string rfname = @"C:\r.wav";
         WaveOutEvent outputDevice;
         AudioFileReader audioFile;
         public Form1()
@@ -38,7 +38,7 @@ namespace Course_P_2020_Audio
         {
             OpenFileDialog open = new OpenFileDialog();
             open.InitialDirectory = "C:\\";
-            open.Filter = "mp3 files (*.mp3)|*.mp3|wav files (*.wav)|*.wav";
+            open.Filter = "wav files (*.wav)|*.wav|mp3 files (*.mp3)|*.mp3";
             open.FilterIndex = 1;
             open.Title = "Открыть файл";
             try
@@ -121,29 +121,8 @@ namespace Course_P_2020_Audio
 
         private void питчшифтингToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var inPath = rfname;
-            var semitone = Math.Pow(2, 1.0 / 12);
-            var upOneTone = semitone * semitone;
-            var downOneTone = 1.0 / upOneTone;
-            using (var reader = new MediaFoundationReader(inPath))
-            {
-                var pitch = new SmbPitchShiftingSampleProvider(reader.ToSampleProvider());
-                using (var device = new WaveOutEvent())
-                {
-                    pitch.PitchFactor = (float)downOneTone; // or downOneTone
-                                                          // just playing the first 10 seconds of the file
-                    SaveFileDialog save = new SaveFileDialog();
-                    save.InitialDirectory = "C:\\";
-                    save.Filter = "wav files (*.wav)|*.wav";
-                    save.FilterIndex = 1;
-                    save.Title = "Сохранить файл";
-                    if (save.ShowDialog() == DialogResult.Cancel)
-                        return;
-                    string filename = save.FileName;
-                    WaveFileWriter.CreateWaveFile(filename, pitch.ToWaveProvider16());
-                    MessageBox.Show("Файл сохранен!");
-                }
-            }
+            Pathsh fm = new Pathsh(rfname);
+            fm.ShowDialog();
         }
     }
 }
