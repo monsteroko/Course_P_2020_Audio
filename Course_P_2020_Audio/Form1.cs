@@ -10,15 +10,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.Wave.SampleProviders;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Course_P_2020_Audio
 {
 
     public partial class Form1 : Form
     {
+        int tm = 0;
+        bool isplaying = false;
+        string audiolngth;
         string rfname = @"C:\r.wav";
         WaveOutEvent outputDevice;
         AudioFileReader audioFile;
+        TimeSpan duration = new TimeSpan();
         public Form1()
         {
             InitializeComponent();
@@ -56,13 +61,23 @@ namespace Course_P_2020_Audio
             if (rfname.IndexOf(".mp3") == -1)
             {
                 конвертироватьВWAVToolStripMenuItem.Enabled = false;
+                обрезатьToolStripMenuItem.Enabled = false;
                 waveViewer1.WaveStream = new WaveFileReader(rfname);
+                WaveFileReader reader = new WaveFileReader(rfname);
+                duration = reader.TotalTime;
+
             }
             else
             {
                 конвертироватьВWAVToolStripMenuItem.Enabled = true;
+                Mp3FileReader reader = new Mp3FileReader(rfname);
+                duration = reader.TotalTime;
+                
             }
             питчшифтингToolStripMenuItem.Enabled = true;
+            audiolngth = " / "+Convert.ToString((int)duration.TotalSeconds)+"    Секунд проиграно";
+            label2.Visible = true;
+            label2.Text = "0" + audiolngth;
             label1.Visible = true;
             button1.Visible = true;
             button2.Visible = true;
@@ -81,6 +96,7 @@ namespace Course_P_2020_Audio
                 audioFile = new AudioFileReader(rfname);
                 outputDevice.Init(audioFile);
             }
+            isplaying = true;
             outputDevice.Play();
         }
 
@@ -95,11 +111,14 @@ namespace Course_P_2020_Audio
         private void button2_Click(object sender, EventArgs e)
         {
             outputDevice?.Stop();
+            isplaying = false;
+            tm = 0;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             outputDevice?.Pause();
+            isplaying = false;
         }
 
         private void конвертироватьВWAVToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,6 +142,21 @@ namespace Course_P_2020_Audio
         {
             Pathsh fm = new Pathsh(rfname);
             fm.ShowDialog();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (isplaying)
+            {
+                tm++;
+            }
+            label2.Text = tm.ToString() + audiolngth;
+        }
+
+        private void обрезатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trim trimfm = new Trim(rfname, (int)duration.TotalSeconds);
+            trimfm.ShowDialog();
         }
     }
 }
