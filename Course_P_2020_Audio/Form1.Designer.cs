@@ -45,6 +45,10 @@
             this.waveViewer1 = new NAudio.Gui.WaveViewer();
             this.label2 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.объединитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.конвертацияВМоноToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.конвертацияВСтереоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ресэмплингToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,7 +94,11 @@
             this.редактированиеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.конвертироватьВWAVToolStripMenuItem,
             this.питчшифтингToolStripMenuItem,
-            this.обрезатьToolStripMenuItem});
+            this.обрезатьToolStripMenuItem,
+            this.объединитьToolStripMenuItem,
+            this.конвертацияВМоноToolStripMenuItem,
+            this.конвертацияВСтереоToolStripMenuItem,
+            this.ресэмплингToolStripMenuItem});
             this.редактированиеToolStripMenuItem.Name = "редактированиеToolStripMenuItem";
             this.редактированиеToolStripMenuItem.Size = new System.Drawing.Size(108, 20);
             this.редактированиеToolStripMenuItem.Text = "Редактирование";
@@ -200,6 +208,39 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // объединитьToolStripMenuItem
+            // 
+            this.объединитьToolStripMenuItem.Enabled = false;
+            this.объединитьToolStripMenuItem.Name = "объединитьToolStripMenuItem";
+            this.объединитьToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.объединитьToolStripMenuItem.Text = "Объединить";
+            this.объединитьToolStripMenuItem.Click += new System.EventHandler(this.объединитьToolStripMenuItem_Click);
+            // 
+            // конвертацияВМоноToolStripMenuItem
+            // 
+            this.конвертацияВМоноToolStripMenuItem.Enabled = false;
+            this.конвертацияВМоноToolStripMenuItem.Name = "конвертацияВМоноToolStripMenuItem";
+            this.конвертацияВМоноToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.конвертацияВМоноToolStripMenuItem.Text = "Конвертация в моно";
+            this.конвертацияВМоноToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.конвертацияВМоноToolStripMenuItem.Click += new System.EventHandler(this.конвертацияВМоноToolStripMenuItem_Click);
+            // 
+            // конвертацияВСтереоToolStripMenuItem
+            // 
+            this.конвертацияВСтереоToolStripMenuItem.Enabled = false;
+            this.конвертацияВСтереоToolStripMenuItem.Name = "конвертацияВСтереоToolStripMenuItem";
+            this.конвертацияВСтереоToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.конвертацияВСтереоToolStripMenuItem.Text = "Конвертация в стерео";
+            this.конвертацияВСтереоToolStripMenuItem.Click += new System.EventHandler(this.конвертацияВСтереоToolStripMenuItem_Click);
+            // 
+            // ресэмплингToolStripMenuItem
+            // 
+            this.ресэмплингToolStripMenuItem.Enabled = false;
+            this.ресэмплингToolStripMenuItem.Name = "ресэмплингToolStripMenuItem";
+            this.ресэмплингToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.ресэмплингToolStripMenuItem.Text = "Ресэмплинг";
+            this.ресэмплингToolStripMenuItem.Click += new System.EventHandler(this.ресэмплингToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,6 +282,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem обрезатьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem объединитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem конвертацияВМоноToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem конвертацияВСтереоToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ресэмплингToolStripMenuItem;
     }
 }
 

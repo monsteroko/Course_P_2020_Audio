@@ -55,6 +55,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mix.Designer.cs">
+      <DependentUpon>Mix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pathsh.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resample.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Resample.Designer.cs">
+      <DependentUpon>Resample.cs</DependentUpon>
+    </Compile>
     <Compile Include="Trim.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +83,9 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mix.resx">
+      <DependentUpon>Mix.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pathsh.resx">
       <DependentUpon>Pathsh.cs</DependentUpon>
@@ -84,6 +99,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resample.resx">
+      <DependentUpon>Resample.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Trim.resx">
       <DependentUpon>Trim.cs</DependentUpon>
     </EmbeddedResource>

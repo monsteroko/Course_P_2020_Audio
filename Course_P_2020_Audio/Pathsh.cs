@@ -49,8 +49,15 @@ namespace Course_P_2020_Audio
                     if (save.ShowDialog() == DialogResult.Cancel)
                         return;
                     string filename = save.FileName;
-                    WaveFileWriter.CreateWaveFile(filename, pitch.ToWaveProvider16());
-                    MessageBox.Show("Файл сохранен!");
+                    if (filename != null)
+                    {
+                        WaveFileWriter.CreateWaveFile(filename, pitch.ToWaveProvider16());
+                        MessageBox.Show("Файл сохранен!");
+                    }
+                    else
+                    {
+                        System.Windows.Forms.MessageBox.Show("Не выбран путь сохранения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

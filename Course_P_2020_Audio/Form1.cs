@@ -61,7 +61,11 @@ namespace Course_P_2020_Audio
             if (rfname.IndexOf(".mp3") == -1)
             {
                 конвертироватьВWAVToolStripMenuItem.Enabled = false;
-                обрезатьToolStripMenuItem.Enabled = false;
+                обрезатьToolStripMenuItem.Enabled = true;
+                объединитьToolStripMenuItem.Enabled = true;
+                конвертацияВМоноToolStripMenuItem.Enabled = true;
+                конвертацияВСтереоToolStripMenuItem.Enabled = true;
+                ресэмплингToolStripMenuItem.Enabled = true;
                 waveViewer1.WaveStream = new WaveFileReader(rfname);
                 WaveFileReader reader = new WaveFileReader(rfname);
                 duration = reader.TotalTime;
@@ -70,6 +74,11 @@ namespace Course_P_2020_Audio
             else
             {
                 конвертироватьВWAVToolStripMenuItem.Enabled = true;
+                обрезатьToolStripMenuItem.Enabled = false;
+                объединитьToolStripMenuItem.Enabled = false;
+                конвертацияВМоноToolStripMenuItem.Enabled = false;
+                конвертацияВСтереоToolStripMenuItem.Enabled = false;
+                ресэмплингToolStripMenuItem.Enabled = false;
                 Mp3FileReader reader = new Mp3FileReader(rfname);
                 duration = reader.TotalTime;
                 
@@ -131,11 +140,18 @@ namespace Course_P_2020_Audio
             if (save.ShowDialog() == DialogResult.Cancel)
                 return;
             string filename = save.FileName;
-            using (var reader = new Mp3FileReader(rfname))
+            if (filename != null)
             {
-                WaveFileWriter.CreateWaveFile(filename, reader);
+                using (var reader = new Mp3FileReader(rfname))
+                {
+                    WaveFileWriter.CreateWaveFile(filename, reader);
+                }
+                MessageBox.Show("Файл сохранен!");
             }
-            MessageBox.Show("Файл сохранен!");
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Не выбран путь сохранения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void питчшифтингToolStripMenuItem_Click(object sender, EventArgs e)
@@ -157,6 +173,68 @@ namespace Course_P_2020_Audio
         {
             Trim trimfm = new Trim(rfname, (int)duration.TotalSeconds);
             trimfm.ShowDialog();
+        }
+
+        private void объединитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Mix fm = new Mix(rfname);
+            fm.ShowDialog();
+        }
+
+        private void конвертацияВМоноToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.InitialDirectory = "C:\\";
+            save.Filter = "wav files (*.wav)|*.wav";
+            save.FilterIndex = 1;
+            save.Title = "Сохранить файл";
+            if (save.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = save.FileName;
+            if (filename != null)
+            {
+                using (var inputReader = new AudioFileReader(rfname))
+                {
+                    var mono = new StereoToMonoSampleProvider(inputReader);
+                    WaveFileWriter.CreateWaveFile16(filename, mono);
+                }
+                MessageBox.Show("Файл сохранен!");
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Не выбран путь сохранения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void конвертацияВСтереоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.InitialDirectory = "C:\\";
+            save.Filter = "wav files (*.wav)|*.wav";
+            save.FilterIndex = 1;
+            save.Title = "Сохранить файл";
+            if (save.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = save.FileName;
+            if (filename != null)
+            {
+                using (var inputReader = new AudioFileReader(rfname))
+                {
+                    var stereo = new MonoToStereoSampleProvider(inputReader);
+                    WaveFileWriter.CreateWaveFile16(filename, stereo);
+                }
+                MessageBox.Show("Файл сохранен!");
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Не выбран путь сохранения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ресэмплингToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Resample fm = new Resample(rfname);
+            fm.ShowDialog();
         }
     }
 }
