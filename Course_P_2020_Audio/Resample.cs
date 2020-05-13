@@ -14,14 +14,22 @@ namespace Course_P_2020_Audio
 {
     public partial class Resample : Form
     {
-        int outRate = 16000;
-        string rfn;
+        int outRate = 16000;//стандартная частота дискретизации
+        string rfn;//перехват пути к исходному файлу
+        /// <summary>
+        /// Инициализация формы
+        /// </summary>
+        /// <param name="rfname"></param>
         public Resample(string rfname)
         {
             InitializeComponent();
             rfn = rfname;
         }
-
+        /// <summary>
+        /// Кнопка изменения частоты дискретизации
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             SaveFileDialog save = new SaveFileDialog();
@@ -63,6 +71,7 @@ namespace Course_P_2020_Audio
                     WaveFileWriter.CreateWaveFile16(outFile, resampler);
                 }
                 MessageBox.Show("Файл сохранен!");
+                this.Close();
             }
             else
             {

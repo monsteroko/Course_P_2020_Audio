@@ -13,8 +13,13 @@ namespace Course_P_2020_Audio
 {
     public partial class Trim : Form
     {
-        string rfn;
-        int totaltm;
+        string rfn;//перехват пути к исходному аудиофайлу
+        int totaltm;//общая длительность аудиозаписи
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rfname"></param>
+        /// <param name="tm"></param>
         public Trim(string rfname, int tm)
         {
             InitializeComponent();
@@ -23,25 +28,35 @@ namespace Course_P_2020_Audio
             numericUpDown1.Maximum = tm;
             numericUpDown2.Maximum = tm;
         }
-
+        /// <summary>
+        /// Кнопка обрезки аудиофайла
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             if (numericUpDown1.Value > numericUpDown2.Value)
                 MessageBox.Show("Начальная позиция позже финальной!", "Ошибка", MessageBoxButtons.OK);
             else
             {
-                SaveFileDialog save = new SaveFileDialog();
-                save.InitialDirectory = "C:\\";
-                save.Filter = "wav files (*.wav)|*.wav";
-                save.FilterIndex = 1;
-                save.Title = "Сохранить файл";
-                if (save.ShowDialog() == DialogResult.Cancel)
-                    return;
-                string filename = save.FileName;
-                TimeSpan cfs = new TimeSpan(0, 0, Convert.ToInt32(numericUpDown1.Value));
-                TimeSpan cfe = new TimeSpan(0, 0, Convert.ToInt32(numericUpDown2.Value));
-                WavFileUtils.TrimWavFile(rfn, filename, cfs, cfe);
-                MessageBox.Show("Файл сохранен!");
+                if ((numericUpDown1.Value + numericUpDown2.Value) >= totaltm)
+                    MessageBox.Show("Длина обрезок больше длины аудиозаписи!", "Ошибка", MessageBoxButtons.OK);
+                else
+                {
+                    SaveFileDialog save = new SaveFileDialog();
+                    save.InitialDirectory = "C:\\";
+                    save.Filter = "wav files (*.wav)|*.wav";
+                    save.FilterIndex = 1;
+                    save.Title = "Сохранить файл";
+                    if (save.ShowDialog() == DialogResult.Cancel)
+                        return;
+                    string filename = save.FileName;
+                    TimeSpan cfs = new TimeSpan(0, 0, Convert.ToInt32(numericUpDown1.Value));
+                    TimeSpan cfe = new TimeSpan(0, 0, Convert.ToInt32(numericUpDown2.Value));
+                    WavFileUtils.TrimWavFile(rfn, filename, cfs, cfe);
+                    MessageBox.Show("Файл сохранен!");
+                    this.Close();
+                }
             }
         }
     }

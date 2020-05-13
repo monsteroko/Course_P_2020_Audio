@@ -14,14 +14,22 @@ namespace Course_P_2020_Audio
 {
     public partial class Pathsh : Form
     {
-        string rfn;
+        string rfn;//перехват пути исходного файла
+        /// <summary>
+        /// Инициализация формы
+        /// </summary>
+        /// <param name="rfname"></param>
         public Pathsh(string rfname)
         {
             InitializeComponent();
             rfn = rfname;
             listBox1.SelectedIndex = 0;
         }
-
+        /// <summary>
+        /// Питч-шифтинг по данным из формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             var inPath = rfn;
@@ -39,7 +47,7 @@ namespace Course_P_2020_Audio
                     }
                     else
                     {
-                        pitch.PitchFactor = (float)downOneTone * trackBar1.Value * (float)0.25;
+                        pitch.PitchFactor = (float)downOneTone * trackBar1.Value * (float)0.042;
                     }
                     SaveFileDialog save = new SaveFileDialog();
                     save.InitialDirectory = "C:\\";
@@ -53,6 +61,7 @@ namespace Course_P_2020_Audio
                     {
                         WaveFileWriter.CreateWaveFile(filename, pitch.ToWaveProvider16());
                         MessageBox.Show("Файл сохранен!");
+                        this.Close();
                     }
                     else
                     {
